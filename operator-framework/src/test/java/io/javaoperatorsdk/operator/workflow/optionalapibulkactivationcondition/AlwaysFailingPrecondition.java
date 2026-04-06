@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.javaoperatorsdk.operator.workflow.bulkactivationcondition;
+package io.javaoperatorsdk.operator.workflow.optionalapibulkactivationcondition;
 
-import io.fabric8.kubernetes.api.model.Secret;
+import io.fabric8.kubernetes.api.model.ConfigMap;
 import io.javaoperatorsdk.operator.api.reconciler.Context;
 import io.javaoperatorsdk.operator.api.reconciler.dependent.DependentResource;
 import io.javaoperatorsdk.operator.processing.dependent.workflow.Condition;
 
-/** Activation condition that always returns true — event source should always be registered. */
-public class AlwaysTrueActivation
-    implements Condition<Secret, BulkActivationConditionCustomResource> {
+/** Reconcile precondition that always fails, simulating e.g. a missing prerequisite resource. */
+public class AlwaysFailingPrecondition
+    implements Condition<ConfigMap, BulkActivationConditionCustomResource> {
 
   @Override
   public boolean isMet(
-      DependentResource<Secret, BulkActivationConditionCustomResource> dependentResource,
+      DependentResource<ConfigMap, BulkActivationConditionCustomResource> dependentResource,
       BulkActivationConditionCustomResource primary,
       Context<BulkActivationConditionCustomResource> context) {
-    return true;
+    return false;
   }
 }
